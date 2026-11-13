@@ -101,7 +101,6 @@ col1, col2, col3 = st.sidebar.columns([1, 2, 1])
 with col2:
     st.image("logo.png", width=240)
 
-st.sidebar.markdown("<p style='text-align:center; font-size:14px; margin-top:-10px;'>NASA Fire Lab</p>", unsafe_allow_html=True)
 
 st.sidebar.header("Test Conditions - All 8 Inputs")
 
