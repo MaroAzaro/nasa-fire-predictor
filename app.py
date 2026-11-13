@@ -22,22 +22,16 @@ st.markdown(f"""
     background-color: #020617;
 }}
 
-/* PHONE ONLY - fix alignment */
 @media (max-width: 768px) {{
     .stApp {{
         background-size: 100% auto;
-        background-position: center bottom;
+        background-position: center 75%;
         background-attachment: scroll;
         background-repeat: no-repeat;
     }}
-    /* push content up so VORTEX is below it, not behind it */
     .block-container {{
         padding-top: 1rem !important;
-        padding-bottom: 280px !important;
-    }}
-    /* make title readable */
-    h1, p {{
-        text-shadow: 0px 2px 10px black;
+        padding-bottom: 150px !important;
     }}
 }}
 </style>
