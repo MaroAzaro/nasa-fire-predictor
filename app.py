@@ -16,23 +16,40 @@ st.markdown(f"""
 :root {{
     color-scheme: dark !important;
 }}
-html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"] {{
+html, body {{
     background-color: #020617 !important;
     color: white !important;
 }}
+[data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"] {{
+    background: transparent !important;
+    color: white !important;
+}}
 .stApp {{
-    background-image: url("data:image/png;base64,{bg}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-color: #020617;
+    background-image: url("data:image/png;base64,{bg}") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-color: #020617 !important;
+    color: white !important;
 }}
 
-/* Force dark mode even if phone is on light mode */
+/* Force dark mode even if phone is on light mode - without killing background image */
 @media (prefers-color-scheme: light) {{
     :root {{ color-scheme: dark !important; }}
-    html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stSidebar"], .stSidebar, [data-testid="stSidebarContent"] {{
+    html, body {{
+        background-color: #020617 !important;
+        color: white !important;
+    }}
+    [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"] {{
+        background: transparent !important;
+        color: white !important;
+    }}
+    .stApp {{
+        background-image: url("data:image/png;base64,{bg}") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
         background-color: #020617 !important;
         color: white !important;
     }}
@@ -63,11 +80,12 @@ input, select, textarea {{
 
 @media (max-width: 768px) {{
     .stApp {{
-        background-size: 90% 90%;
-        background-position: center center;
-        background-attachment: scroll;
-        background-repeat: no-repeat;
-        background-color: #020617;
+        background-image: url("data:image/png;base64,{bg}") !important;
+        background-size: 90% 90% !important;
+        background-position: center center !important;
+        background-attachment: scroll !important;
+        background-repeat: no-repeat !important;
+        background-color: #020617 !important;
     }}
     .block-container {{
         padding-top: 1rem !important;
