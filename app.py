@@ -104,7 +104,7 @@ st.write("Test how fire behaves in space vs Earth - Real NASA Data")
 model = joblib.load("model.pkl")
 
 # --- LOGO IN SIDEBAR ---
-st.sidebar.image("logo.png", width=120)
+st.sidebar.image("logo.png", width=240)
 
 st.sidebar.header("Test Conditions - All 8 Inputs")
 
