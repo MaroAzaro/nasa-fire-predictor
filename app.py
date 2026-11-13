@@ -34,7 +34,7 @@ if st.button("Predict Fire Risk"):
     prediction = model.predict(input_data)
     proba = model.predict_proba(input_data)[0]
 
-   if pred[0] == 0:
+if pred[0] == 0:
     st.success("✅ SAFE - No Ignition")
     st.write("This combination will NOT catch fire.")
 else:
