@@ -132,4 +132,4 @@ if st.button("Predict Fire Risk"):
         st.success("✅ SAFE - Flame Extinguished")
 
     st.write(f"Confidence: {max(proba)*100:.1f}%")
-    st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
+    st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 15%")
