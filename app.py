@@ -5,7 +5,6 @@ import base64
 
 st.set_page_config(page_title="NASA Fire Predictor", page_icon="🔥")
 
-# --- BACKGROUND PICTURE ---
 def get_base64(file):
     with open(file, "rb") as f:
         return base64.b64encode(f.read()).decode()
@@ -23,13 +22,22 @@ st.markdown(f"""
     background-color: #020617;
 }}
 
-/* On mobile - show full picture, no squish, no crop */
+/* PHONE ONLY - fix alignment */
 @media (max-width: 768px) {{
     .stApp {{
-        background-size: contain;
-        background-position: top center;
+        background-size: 100% auto;
+        background-position: center bottom;
         background-attachment: scroll;
         background-repeat: no-repeat;
+    }}
+    /* push content up so VORTEX is below it, not behind it */
+    .block-container {{
+        padding-top: 1rem !important;
+        padding-bottom: 280px !important;
+    }}
+    /* make title readable */
+    h1, p {{
+        text-shadow: 0px 2px 10px black;
     }}
 }}
 </style>
