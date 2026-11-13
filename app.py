@@ -3,7 +3,7 @@ import streamlit as st
 import joblib
 import pandas as pd
 
-model = joblib.load('/content/drive/MyDrive/NASA/nasa_fire_model.pkl')
+model = joblib.load('nasa_fire_model.pkl')
 
 st.title("NASA Microgravity Fire Predictor 🔥")
 st.write("Will the fire go out in space?")
