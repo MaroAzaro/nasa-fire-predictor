@@ -1,36 +1,47 @@
-
 import streamlit as st
 import joblib
 import pandas as pd
+import numpy as np
 
-model = joblib.load('nasa_fire_model.pkl')
+st.set_page_config(page_title="NASA Fire Predictor", page_icon="🔥")
+st.title("🔥 NASA Fire Safety Predictor")
+st.write("Test how fire behaves in space vs Earth")
 
-st.title("NASA Microgravity Fire Predictor 🔥")
-st.write("Will the fire go out in space?")
+# Load model
+model = joblib.load("model.pkl")
 
-fuel = st.selectbox("Fuel Type", ['Nomex_Fabric', 'Methane', 'SIBAL_Cotton_Fiberglass', 'PMMA', 'Cellulose'])
-state = st.selectbox("Fuel State", ['Solid', 'Gas', 'Liquid_Droplet', 'Solid_LargeScale'])
-campaign = st.selectbox("Campaign", ['BASS-II', 'SAFFIRE', 'ACME', 'FLEX'])
-oxygen = st.slider("Oxygen %", 14, 35, 21)
-pressure = st.slider("Pressure kPa", 50, 200, 101)
-flow = st.slider("Flow Velocity m/s", 0.0, 0.8, 0.2)
-size = st.slider("Fuel Size mm", 0.2, 10.0, 2.0)
+# 1. Inputs - all 7
+st.sidebar.header("Test Conditions")
 
-if st.button("Predict"):
-    data = pd.DataFrame([{
-        'Fuel_Type': fuel,
-        'Fuel_State': state,
-        'Experiment_Campaign': campaign,
-        'Gravity_Level_g': 0.000001,
-        'Ambient_Pressure_kPa': pressure,
-        'Oxygen_Conc_pct': oxygen,
-        'Flow_Velocity_m_s': flow,
-        'Characteristic_Dim_mm': size
-    }])
-    pred = model.predict(data)[0]
-    prob = model.predict_proba(data)[0][1]*100
+fuel_state = st.sidebar.selectbox("Fuel State", ["Solid", "Liquid", "Gas"])
+fuel_type = st.sidebar.selectbox("Fuel Type", ["PMMA", "Paper", "Polyethylene", "Wood", "Other"])
+gravity = st.sidebar.slider("Gravity Level (g)", 0.0, 1.0, 1.0, step=0.01)
+pressure = st.sidebar.slider("Ambient Pressure (kPa)", 10, 150, 101)
+oxygen = st.sidebar.slider("Oxygen %", 10, 40, 21)
+flow = st.sidebar.slider("Flow Velocity (m/s)", 0.0, 2.0, 0.1)
+dim = st.sidebar.slider("Characteristic Size (mm)", 1, 100, 10)
+
+if st.button("Predict Fire Risk"):
+    # Create input dataframe - must match training order
+    # We use simple encoding: Solid=0, Liquid=1, Gas=2
+    fuel_state_map = {"Solid": 0, "Liquid": 1, "Gas": 2}
     
-    if pred == 1:
-        st.error(f"WILL GO OUT - {prob:.1f}% chance of extinction")
-    else:
-        st.success(f"WILL KEEP BURNING - Only {prob:.1f}% chance of going out")
+    # For Fuel_Type, we need to match your Colab encoding
+    # If your model used OneHot, this simplified version uses label too
+    # Most common in your project: PMMA=0, Paper=1, etc.
+    fuel_type_map = {"PMMA": 0, "Paper": 1, "Polyethylene": 2, "Wood": 3, "Other": 4}
+
+    input_data = pd.DataFrame([[
+        fuel_state_map[fuel_state],
+        fuel_type_map[fuel_type],
+        gravity,
+        pressure,
+        oxygen,
+        flow,
+        dim
+    ]], columns=['Fuel_State', 'Fuel_Type', 'Gravity_Level_g', 'Ambient_Pressure_kPa', 'Oxygen_Conc_pct', 'Flow_Velocity_m_s', 'Characteristic_Dim_mm'])
+
+    prediction = model.predict(input_data)
+    
+    st.success(f"Prediction: {prediction[0]}")
+    st.write("Try: Gravity = 0 + Oxygen = 30% = Very dangerous in space!")
