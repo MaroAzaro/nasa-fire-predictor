@@ -43,11 +43,11 @@ if st.button("Predict Fire Risk"):
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
 
     # --- FOOTER ---
-st.markdown("---")
-st.caption("🔥 NASA Fire Safety Predictor")
-st.caption("Built with Real NASA Microgravity Fire Data | ACME • BASS-II • SAFFIRE • FLEX")
-st.caption("© 2026 NASA Fire Predictor. All Rights Reserved.")
-st.caption("Made for Science & Space Safety | Version 1.0")
-st.caption("Disclaimer: For educational / demo purposes only.")
+    st.markdown("---")
+    st.caption("🔥 NASA Fire Safety Predictor")
+    st.caption("Built with Real NASA Microgravity Fire Data | ACME • BASS-II • SAFFIRE • FLEX")
+    st.caption("© 2026 NASA Fire Predictor. All Rights Reserved.")
+    st.caption("Made for Science & Space Safety | Version 1.0")
+    st.caption("Disclaimer: For educational / demo purposes only.")
 
 
