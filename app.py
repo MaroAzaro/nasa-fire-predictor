@@ -13,6 +13,13 @@ bg = get_base64("background.png")
 
 st.markdown(f"""
 <style>
+:root {{
+    color-scheme: dark !important;
+}}
+html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"] {{
+    background-color: #020617 !important;
+    color: white !important;
+}}
 .stApp {{
     background-image: url("data:image/png;base64,{bg}");
     background-size: cover;
@@ -20,6 +27,38 @@ st.markdown(f"""
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: #020617;
+}}
+
+/* Force dark mode even if phone is on light mode */
+@media (prefers-color-scheme: light) {{
+    :root {{ color-scheme: dark !important; }}
+    html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stSidebar"], .stSidebar, [data-testid="stSidebarContent"] {{
+        background-color: #020617 !important;
+        color: white !important;
+    }}
+    h1, h2, h3, h4, h5, h6, p, span, label, div {{
+        color: white !important;
+    }}
+}}
+
+h1, h2, h3, p, span, label, div {{
+    color: white !important;
+}}
+[data-testid="stSidebar"], [data-testid="stSidebarContent"] {{
+    background-color: #0a1128 !important;
+    color: white !important;
+}}
+[data-testid="stSidebar"] * {{
+    color: white !important;
+}}
+.stButton > button, [data-testid="stSelectbox"] > div > div, [data-testid="stSlider"] > div {{
+    background-color: #1e293b !important;
+    color: white !important;
+    border-color: #334155 !important;
+}}
+input, select, textarea {{
+    background-color: #1e293b !important;
+    color: white !important;
 }}
 
 @media (max-width: 768px) {{
