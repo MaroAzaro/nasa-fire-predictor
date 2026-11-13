@@ -24,8 +24,8 @@ st.markdown(f"""
 
 @media (max-width: 768px) {{
     .stApp {{
-        background-size: 100% auto;
-        background-position: center 35%;
+        background-size: 100% 80%;
+        background-position: center bottom;
         background-attachment: scroll;
         background-repeat: no-repeat;
     }}
