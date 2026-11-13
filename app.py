@@ -74,13 +74,6 @@ input, select, textarea {{
     background-color: #1e293b !important;
     color: white !important;
 }}
-[data-testid="stSidebar"] [data-testid="stImage"] {{
-    display: flex;
-    justify-content: center;
-}}
-[data-testid="stSidebar"] [data-testid="stImage"] img {{
-    border-radius: 12px;
-}}
 @media (max-width: 768px) {{
     .stApp {{
         background-image: url("data:image/png;base64,{bg}") !important;
@@ -103,8 +96,12 @@ st.write("Test how fire behaves in space vs Earth - Real NASA Data")
 
 model = joblib.load("model.pkl")
 
-# --- LOGO IN SIDEBAR ---
-st.sidebar.image("logo.png", width=240)
+# --- CENTERED LOGO IN SIDEBAR ---
+col1, col2, col3 = st.sidebar.columns([1, 2, 1])
+with col2:
+    st.image("logo.png", width=240)
+
+st.sidebar.markdown("<p style='text-align:center; font-size:14px; margin-top:-10px;'>NASA Fire Lab</p>", unsafe_allow_html=True)
 
 st.sidebar.header("Test Conditions - All 8 Inputs")
 
