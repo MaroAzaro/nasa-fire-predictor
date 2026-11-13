@@ -10,7 +10,7 @@ def get_base64(file):
     with open(file, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-bg = get_base64("logo.png")
+bg = get_base64("background.png")
 
 st.markdown(f"""
 <style>
