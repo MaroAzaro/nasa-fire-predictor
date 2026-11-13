@@ -42,17 +42,4 @@ if st.button("Predict Fire Risk"):
     st.write(f"Confidence: {max(proba)*100:.1f}%")
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
 
-# --- FOOTER ---
-st.divider()
-st.markdown(
-    """
-    <div style="text-align: center; color: gray; font-size: 13px; padding-top: 10px;">
-        <b>🔥 NASA Fire Safety Predictor</b><br>
-        Built with Real NASA Microgravity Fire Data | ACME • BASS-II • SAFFIRE • FLEX<br>
-        © 2026 NASA Fire Predictor. All Rights Reserved.<br>
-        Made for Science & Space Safety | Version 1.0<br>
-        <span style="font-size: 11px;">Disclaimer: For educational / demo purposes only. Not for real spacecraft safety decisions.</span>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+
