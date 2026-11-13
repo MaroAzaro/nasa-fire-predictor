@@ -25,13 +25,13 @@ st.markdown(f"""
 @media (max-width: 768px) {{
     .stApp {{
         background-size: 100% auto;
-        background-position: center 75%;
+        background-position: center 35%;
         background-attachment: scroll;
         background-repeat: no-repeat;
     }}
     .block-container {{
         padding-top: 1rem !important;
-        padding-bottom: 150px !important;
+        padding-bottom: 80px !important;
     }}
 }}
 </style>
