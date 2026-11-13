@@ -16,11 +16,21 @@ st.markdown(f"""
 <style>
 .stApp {{
     background-image: url("data:image/png;base64,{bg}");
-    background-size: 100% 100%;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: #020617;
+}}
+
+/* On mobile - show full picture, no squish, no crop */
+@media (max-width: 768px) {{
+    .stApp {{
+        background-size: contain;
+        background-position: top center;
+        background-attachment: scroll;
+        background-repeat: no-repeat;
+    }}
 }}
 </style>
 """, unsafe_allow_html=True)
