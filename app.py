@@ -16,10 +16,11 @@ st.markdown(f"""
 <style>
 .stApp {{
     background-image: url("data:image/png;base64,{bg}");
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: #020617;
 }}
 </style>
 """, unsafe_allow_html=True)
