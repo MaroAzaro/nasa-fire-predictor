@@ -1,8 +1,29 @@
 import streamlit as st
 import joblib
 import pandas as pd
+import base64
 
 st.set_page_config(page_title="NASA Fire Predictor", page_icon="🔥")
+
+# --- BACKGROUND PICTURE ---
+def get_base64(file):
+    with open(file, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+bg = get_base64("background.png")
+
+st.markdown(f"""
+<style>
+.stApp {{
+    background-image: url("data:image/png;base64,{bg}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🔥 NASA Fire Safety Predictor")
 st.write("Test how fire behaves in space vs Earth - Real NASA Data")
 
@@ -41,5 +62,3 @@ if st.button("Predict Fire Risk"):
 
     st.write(f"Confidence: {max(proba)*100:.1f}%")
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
-
-
