@@ -33,6 +33,8 @@ html, body {{
     background-color: #020617 !important;
     color: white !important;
 }}
+
+/* Force dark mode even if phone is on light mode - without killing background image */
 @media (prefers-color-scheme: light) {{
     :root {{ color-scheme: dark !important; }}
     html, body {{
@@ -55,6 +57,7 @@ html, body {{
         color: white !important;
     }}
 }}
+
 h1, h2, h3, p, span, label, div {{
     color: white !important;
 }}
@@ -74,6 +77,7 @@ input, select, textarea {{
     background-color: #1e293b !important;
     color: white !important;
 }}
+
 @media (max-width: 768px) {{
     .stApp {{
         background-image: url("data:image/png;base64,{bg}") !important;
@@ -95,12 +99,6 @@ st.title("🔥 NASA Fire Safety Predictor")
 st.write("Test how fire behaves in space vs Earth - Real NASA Data")
 
 model = joblib.load("model.pkl")
-
-# --- CENTERED LOGO IN SIDEBAR ---
-col1, col2, col3 = st.sidebar.columns([1, 2, 1])
-with col2:
-    st.image("logo.png", width=240)
-
 
 st.sidebar.header("Test Conditions - All 8 Inputs")
 
@@ -134,4 +132,4 @@ if st.button("Predict Fire Risk"):
         st.success("✅ SAFE - Flame Extinguished")
 
     st.write(f"Confidence: {max(proba)*100:.1f}%")
-    st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
+    st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 15%")
