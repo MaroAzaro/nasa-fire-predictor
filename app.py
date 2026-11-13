@@ -1,27 +1,15 @@
 import streamlit as st
+import joblib
 import pandas as pd
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.pipeline import Pipeline
 
 st.set_page_config(page_title="NASA Fire Predictor", page_icon="🔥")
 st.title("🔥 NASA Fire Safety Predictor")
 st.write("Test how fire behaves in space vs Earth - Real NASA Data")
 
-@st.cache_resource
-def load_model():
-    df = pd.read_csv("data.csv")
-    X = df[['Fuel_State','Fuel_Type','Experiment_Campaign','Gravity_Level_g','Ambient_Pressure_kPa','Oxygen_Conc_pct','Flow_Velocity_m_s','Characteristic_Dim_mm']]
-    y = df['Extinction_Flag']
-    pre = ColumnTransformer([('cat', OneHotEncoder(handle_unknown='ignore'), ['Fuel_State','Fuel_Type','Experiment_Campaign'])], remainder='passthrough')
-    model = Pipeline([('pre', pre), ('clf', RandomForestClassifier(n_estimators=100, random_state=42))])
-    model.fit(X, y)
-    return model
-
-model = load_model()
+model = joblib.load("model.pkl")
 
 st.sidebar.header("Test Conditions - All 8 Inputs")
+
 fuel_state = st.sidebar.selectbox("Fuel State", ["Solid", "Liquid", "Gas"])
 fuel_type = st.sidebar.selectbox("Fuel Type", ['Methane', 'Nomex_Fabric', 'Nomex_Spacecraft_Liner', 'Propane', 'PMMA', 'n_Heptane', 'SIBAL_Cotton_Fiberglass', 'Methanol', 'n_Decane', 'PMMA_Large_Slab', 'Dodecane_Hexadecane_Mix', 'Cotton_Fiberglass_Blend', 'Cellulose_Sheet', 'Hydrogen_Methane_Blend', 'Ethylene', 'Silicone_Composite'])
 campaign = st.sidebar.selectbox("Experiment Campaign", ['ACME', 'BASS-II', 'SAFFIRE', 'FLEX'])
@@ -42,14 +30,10 @@ if st.button("Predict Fire Risk"):
         'Flow_Velocity_m_s': flow,
         'Characteristic_Dim_mm': dim
     }])
+
     prediction = model.predict(input_data)
     proba = model.predict_proba(input_data)[0]
-    if prediction[0] == 0:
-        st.error("🔥 DANGER - Will Ignite / Burning!")
-        st.write("Extinction Flag = 0 means flame did NOT go out - Fire is burning!")
-    else:
-        st.success("✅ SAFE - Flame Extinguished")
-        st.write("Extinction Flag = 1 means flame went out - Safe.")
+
+    st.success(f"Prediction: {prediction[0]}")
     st.write(f"Confidence: {max(proba)*100:.1f}%")
-    st.caption("Confidence = how sure the model is about this result.")
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
