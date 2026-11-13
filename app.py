@@ -34,13 +34,6 @@ if st.button("Predict Fire Risk"):
     prediction = model.predict(input_data)
     proba = model.predict_proba(input_data)[0]
 
-    if prediction[0] == 0:
-        st.success("✅ SAFE - No Ignition")
-        st.write("This combination will NOT catch fire.")
-    else:
-        st.error("🔥 DANGER - Will Ignite!")
-        st.write("This combination WILL catch fire - High fire risk!")
-
+    st.success(f"Prediction: {prediction[0]}")
     st.write(f"Confidence: {max(proba)*100:.1f}%")
-    st.caption("Confidence = how sure the model is about this result.")
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
