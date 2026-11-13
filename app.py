@@ -2,7 +2,6 @@ import streamlit as st
 import joblib
 import pandas as pd
 import base64
-import numpy as np
 
 st.set_page_config(page_title="NASA Fire Predictor", page_icon="🔥")
 
@@ -75,7 +74,6 @@ input, select, textarea {{
     background-color: #1e293b !important;
     color: white !important;
 }}
-/* Center the sidebar logo */
 [data-testid="stSidebar"] [data-testid="stImage"] {{
     display: flex;
     justify-content: center;
@@ -142,36 +140,3 @@ if st.button("Predict Fire Risk"):
 
     st.write(f"Confidence: {max(proba)*100:.1f}%")
     st.info("Try: Campaign = SAFFIRE + Gravity = 0 + Oxygen = 30%")
-
-# --- Which factor matters most? ---
-st.divider()
-st.subheader("📊 Which factor affects fire the most?")
-st.write("This is what your model learned during training:")
-
-try:
-    clf = model
-    if hasattr(model, "named_steps"):
-        clf = list(model.named_steps.values())[-1]
-
-    if hasattr(clf, "feature_importances_"):
-        importances = clf.feature_importances_
-        try:
-            feature_names = model.named_steps["preprocessor"].get_feature_names_out()
-        except:
-            try:
-                feature_names = model[:-1].get_feature_names_out()
-            except:
-                feature_names = [f"Feature {i}" for i in range(len(importances))]
-
-        imp_df = pd.DataFrame({"Factor": feature_names, "Importance": importances}).sort_values("Importance", ascending=False)
-        imp_df["Factor"] = imp_df["Factor"].str.split("__").str[-1]
-        imp_grouped = imp_df.groupby("Factor", as_index=False)["Importance"].sum().sort_values("Importance", ascending=False)
-
-        st.bar_chart(imp_grouped.set_index("Factor"))
-        top = imp_grouped.iloc[0]
-        st.success(f"🏆 Biggest factor: **{top['Factor']}** - {top['Importance']*100:.1f}% of the decision")
-        st.dataframe(imp_grouped, hide_index=True, use_container_width=True)
-    else:
-        st.warning("This model type doesn't have built-in feature_importances_.")
-except Exception as e:
-    st.warning(f"Couldn't read importances: {e}")
