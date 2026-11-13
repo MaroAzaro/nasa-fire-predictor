@@ -24,10 +24,11 @@ st.markdown(f"""
 
 @media (max-width: 768px) {{
     .stApp {{
-        background-size: cover;
-        background-position: center bottom;
+        background-size: 90% auto;
+        background-position: center center;
         background-attachment: scroll;
         background-repeat: no-repeat;
+        background-color: #020617;
     }}
     .block-container {{
         padding-top: 1rem !important;
